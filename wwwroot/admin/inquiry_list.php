@@ -1,17 +1,10 @@
 <?php
-// admin/inquiry_list.php
+
 require_once( __DIR__ . '/init_auth.php');
-
-//Page数取得
-$page_num = (int)@$_GET['p'];
-//1page当たりの数
+// ページ数取得
+$page_num = abs((int)@$_GET['p']);
+// 1Pageあたりの要素数
 $per_page = 10;
-
-//「前のPAGE」と　「つぎのPAGE」
-$smarty_obj->assign('next_page', $page_num + 1);
-$smarty_obj->assign('back_page', $page_num - 1);
-//ボータンcontroll
-$smarty_obj->assign('back_page_flg', (0 === $page_num)? false : true );
 // sort情報を取得する
 $sort = (string)@$_GET['sort'];
 //var_dump($sort);
@@ -100,22 +93,22 @@ if ('' !== $find_string['birthday_from']) {
 }
 // WHERE句の作成
 if (array() !== $where_array) {
+    // WHERE句部分を作って
     $buf = ' WHERE ' . implode(' and ', $where_array);
-    //
+    // SQLに結合
     $sql .= $buf;
     $sql_count .= $buf;
 }
 // SQLの締め
-$sql .= " ORDER BY {$sort_sql_e}
-  LIMIT :limit_start, :limit_num ;";
+$sql .= " ORDER BY {$sort_sql_e} LIMIT :limit_start, :limit_num ;";
 $sql_count .= " ;";
-
-//
+//var_dump($sql);
+//var_dump($sql_count);
+// count用のbind_dataを保存しておく
 $bind_data_count = $bind_data;
-//
+// LIMIT用のbindデータを入れる
 $bind_data[':limit_start'] = $page_num * $per_page;
 $bind_data[':limit_num'] = $per_page;
-
 $pre = $dbh->prepare($sql);
 //var_dump($sql);
 // 値のバインド
@@ -129,30 +122,27 @@ $data = $pre->fetchAll(PDO::FETCH_ASSOC);
 //var_dump($data);
 // テンプレートにデータを渡して
 $smarty_obj->assign('inquiry_list', $data);
-
-//count of record
+// レコード数をカウントする
 $pre_count = $dbh->prepare($sql_count);
 // 値のバインド
 foreach($bind_data_count as $k => $v) {
     $pre_count->bindValue($k, $v);
 }
-// 実行
+// SQLを実行
 $r = $pre_count->execute(); // XXX エラーチェック省略
-
+// レコード件数を取得
 $rec_num = $pre_count->fetchAll();
-$rec_num  = $rec_num[0][0];
-var_dump($rec_num);
-
-//
-$max_page_num = ceil($rec_num / $per_page);
-var_dump($max_page_num);
-
-
+$rec_num = $rec_num[0][0];
+//var_dump($rec_num);
+// 最大Page数の計算(全体要素数/1Page要素数:端数切り上げ):0 startにするので -1
+$max_page_num = ceil($rec_num / $per_page) - 1;
+//var_dump($max_page_num);
+// 「前のPage」と「次のPage」のページ数を設定
 $smarty_obj->assign('next_page', $page_num + 1);
 $smarty_obj->assign('back_page', $page_num - 1);
-//ボータンcontroll
+// ボタン制御
 $smarty_obj->assign('back_page_flg', (0 === $page_num)? false : true );
-$smarty_obj->assign('back_page_flg', ($page_num>= $max_page_num)? false : true );
+$smarty_obj->assign('next_page_flg', ($page_num >= $max_page_num)? false : true );
 // 表示する
 error_reporting(E_ALL & ~E_NOTICE);
 $smarty_obj->display('admin/inquiry_list.tpl');

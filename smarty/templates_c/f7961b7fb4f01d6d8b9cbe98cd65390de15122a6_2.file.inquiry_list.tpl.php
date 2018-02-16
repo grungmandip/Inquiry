@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-07-18 18:32:00
+/* Smarty version 3.1.30, created on 2017-12-13 17:22:53
   from "/home/maharajan/Inquiry/smarty/templates/admin/inquiry_list.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_596dd590e58553_56802333',
+  'unifunc' => 'content_5a30e35d364573_83291183',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f7961b7fb4f01d6d8b9cbe98cd65390de15122a6' => 
     array (
       0 => '/home/maharajan/Inquiry/smarty/templates/admin/inquiry_list.tpl',
-      1 => 1500370318,
+      1 => 1512465610,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_596dd590e58553_56802333 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a30e35d364573_83291183 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <html>
 <head>
@@ -119,6 +119,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 >
 
 </div>
-</bod>
+</body>
 </html><?php }
 }

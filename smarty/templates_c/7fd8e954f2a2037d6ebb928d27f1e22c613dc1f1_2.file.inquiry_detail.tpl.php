@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2017-06-29 10:58:55
+/* Smarty version 3.1.30, created on 2017-08-09 18:37:10
   from "/home/maharajan/Inquiry/smarty/templates/admin/inquiry_detail.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_59545edf813ea4_17512263',
+  'unifunc' => 'content_598ad7c69fc9d2_98599171',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7fd8e954f2a2037d6ebb928d27f1e22c613dc1f1' => 
     array (
       0 => '/home/maharajan/Inquiry/smarty/templates/admin/inquiry_detail.tpl',
-      1 => 1498553410,
+      1 => 1499905846,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_59545edf813ea4_17512263 (Smarty_Internal_Template $_smarty_tpl) {
+function content_598ad7c69fc9d2_98599171 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <html>
 <head>
@@ -32,13 +32,18 @@ function content_59545edf813ea4_17512263 (Smarty_Internal_Template $_smarty_tpl)
 </head>
 <body>
 <div class="container">
-
+<h1>お問い合わせの</h1>
 <?php echo htmlspecialchars(var_dump($_smarty_tpl->tpl_vars['inquiry_data']->value), ENT_QUOTES, 'UTF-8');?>
 
 <table class = "table">
 <tr>
 	<td>id
 	<td><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['inquiry_id'], ENT_QUOTES, 'UTF-8');?>
+
+</tr>
+<tr>
+	<td>ステータス
+	<td><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['status'], ENT_QUOTES, 'UTF-8');?>
 
 </tr>
 <tr>
@@ -61,10 +66,29 @@ function content_59545edf813ea4_17512263 (Smarty_Internal_Template $_smarty_tpl)
 	<td><pre><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['inquiry_body'], ENT_QUOTES, 'UTF-8');?>
 </pre>
 </tr>
-<h2></h2>
+<tr>
+	<td>返信時間
+	<td><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['response_date'], ENT_QUOTES, 'UTF-8');?>
+
+</tr>
+<tr>
+	<td>返信内容
+	<td><pre><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['response_body'], ENT_QUOTES, 'UTF-8');?>
+</pre>
+</table>
+
+<h2>返信内容の登録</h2>
+<form action="./inquiry_edit.php" method="post">
+<input type="hidden" name="inquiry_id" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['inquiry_data']->value['inquiry_id'], ENT_QUOTES, 'UTF-8');?>
+">
+返信内容<textarea name="response_body"></textarea><sssbr>
+<button class ="btn btn-primary">返信内容の登録</button>
+</form>
+
+<h2>未実装</h2>
 <ul>
 	<li>「返信をmailする」機能
-	<li>「」
+	<li>返信のステータス表示
 </ul>
 
 <hr>
